@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    private val _tts by lazy { MyTtsImpl(baseContext) }
+    private val _ttsManager: TtsManager by lazy { TtsManagerImpl(baseContext) }
 
     private lateinit var _btnSpeech: Button
     private lateinit var _etText: EditText
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        _tts.release()
+        _ttsManager.release()
         super.onDestroy()
     }
 
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 val pitch = progress * PITCH_STEP
                 val format = "%.1f".format(pitch)
                 _tvPitch.text = "피치 조절 : $format"
-                _tts.setPitch(pitch)
+                _ttsManager.setPitch(pitch)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickBtn(view: View) {
-        _tts.speak(_text) {
+        _ttsManager.speak(_text) {
             Log.d("DEV_LOG", "done")
         }
     }

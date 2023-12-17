@@ -6,9 +6,9 @@ import android.speech.tts.UtteranceProgressListener
 import android.util.Log
 import java.util.Locale
 
-class MyTtsImpl(
+class TtsManagerImpl(
     private val _context: Context
-) : UtteranceProgressListener(), MyTts,
+) : UtteranceProgressListener(), TtsManager,
     TextToSpeech.OnInitListener {
 
     private var _tts: TextToSpeech? = null
